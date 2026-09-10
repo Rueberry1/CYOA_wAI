@@ -1,0 +1,10 @@
+{
+  "passage_length": "800_words",
+  "temperature": 0.7,
+  "allow_fourth_wall": false,
+  "single_location_only": false,
+  "allow_steamy_scenes": false,
+  "profanity_level": "none",
+  "violence_gore_level": "low",
+  "romance_focus": "medium"
+}
