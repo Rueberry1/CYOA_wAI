@@ -81,7 +81,6 @@ The game includes several settings that let you customize how stories are genera
 | Setting         | Description                                           |
 | --------------- | ----------------------------------------------------- |
 | Passage Length  | Controls how long each story segment is               |
-| Temperature     | Controls how predictable or creative the AI is        |
 | Custom Choices  | Allows you to enter your own actions                  |
 | Fourth Wall     | Controls whether the story can acknowledge the player |
 | Single Location | Keeps the story within one location                   |
