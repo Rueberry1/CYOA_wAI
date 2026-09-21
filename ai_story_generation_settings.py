@@ -18,6 +18,7 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "profanity_level": "none",  # none, mild, allow
     "violence_gore_level": "low",  # low, medium, high
     "romance_focus": "off",  # off, low, medium, high
+    "allow_custom_choices": False # add hybrid mode eventually
 }
 
 
