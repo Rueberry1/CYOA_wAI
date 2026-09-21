@@ -10,7 +10,7 @@ A set of python files, that, run together, make a choose your own adventure stor
 
 Open a console (terminal on windows, or equivalents on other OS)
 
-type `python3 ai_story_generation.py into the terminal`
+type `python3 ai_story_generation.py` into the terminal
 
 
 ### **Disclaimer**
