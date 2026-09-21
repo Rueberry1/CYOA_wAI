@@ -5,3 +5,8 @@ Running the game:
 Open a console (terminal on windows, or equivalents on other OS)
 
 type python3 ai_story_generation.py into the terminal
+
+
+**Disclaimer**
+
+I use AI to help me learn to code in python. Parts of this code were created with the help of AI
