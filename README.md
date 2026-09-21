@@ -109,6 +109,8 @@ Some examples include:
 
 </details>
 
+_Fun Fact, Comic Horror was created because of a typo trying to type Cosmic Horror!_
+
 ---
 
 ## 🧠 How the AI Works
