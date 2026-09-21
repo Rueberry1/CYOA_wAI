@@ -72,6 +72,10 @@ Set your `OPENAI_API_KEY` environment variable before running the game.
 python3 ai_story_generation.py
 ```
 
+### 5. Quiting the Game
+
+Type **Command+C/Control+C** to quit the game. All data is saved automatically
+
 ---
 
 ## ⚙️ Settings
