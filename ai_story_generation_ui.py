@@ -91,20 +91,55 @@ def choose_your_own_adventure(
         table = Table(box=None, show_header=False, expand=False, border_style="bright_blue")
         for idx, option in enumerate(options):
             table.add_row(f"[bold blue]{idx+1}.[/] [bright_white]{option}")
+        if settings and settings.get("allow_custom_choices", False):
+            table.add_row(
+                f"[bold blue]{len(options)+1}.[/] [bright_yellow]Something else...[/]"
+            )
         console.print(table)
         console.print(footer)
 
         while True:
             try:
-                choice = Prompt.ask("[bold cyan]Select your choice[/]", choices=[str(i+1) for i in range(len(options))])
-                choice_int = int(choice)
-                if 1 <= choice_int <= len(options):
-                    break
-            except ValueError:
-                pass
-            console.print("[bright_red]Invalid choice. Try again.[/]")
+                custom_enabled = settings and settings.get("allow_custom_choices", False)
+                custom_option_number = len(options) + 1
 
-        chosen_text = options[choice_int - 1]
+                if custom_enabled:
+                    valid_choices = [
+                        str(i + 1) for i in range(len(options) + 1)
+                    ]
+                else:
+                    valid_choices = [
+                        str(i + 1) for i in range(len(options))
+                    ]
+
+                choice = Prompt.ask(
+                    "[bold cyan]Select your choice[/]",
+                    choices=valid_choices
+                )
+
+                choice_int = int(choice)
+
+                if custom_enabled and choice_int == custom_option_number:
+                    custom_choice = Prompt.ask(
+                        "[bold cyan]What do you want to do?[/]"
+                    ).strip()
+
+                    if custom_choice:
+                        chosen_text = custom_choice
+                        break
+
+                    console.print(
+                        "[bright_red]Custom choice cannot be empty.[/]"
+                    )
+                    continue
+
+                if 1 <= choice_int <= len(options):
+                    chosen_text = options[choice_int - 1]
+                    break
+
+            except ValueError:
+                console.print("[bright_red]Invalid choice. Try again.[/]")
+
         path_choices.append(chosen_text)
 
         stats_update = extract_stats_update(segment)
@@ -254,33 +289,36 @@ def _content_style_menu(console: Console, settings: dict[str, Any]) -> None:
         table = Table(box=None, show_header=False, expand=False, border_style="bright_blue")
         table.add_row("[bold blue]1.[/] [bright_white]Allow fourth-wall breaks[/]", f"[cyan]{settings.get('allow_fourth_wall')}[/]")
         table.add_row("[bold blue]2.[/] [bright_white]Single location only[/]", f"[cyan]{settings.get('single_location_only')}[/]")
-        table.add_row("[bold blue]3.[/] [bright_white]Allow steamy scenes[/]", f"[cyan]{settings.get('allow_steamy_scenes')}[/]")
-        table.add_row("[bold blue]4.[/] [bright_white]Profanity level[/]", f"[cyan]{settings.get('profanity_level')}[/]")
-        table.add_row("[bold blue]5.[/] [bright_white]Violence/gore level[/]", f"[cyan]{settings.get('violence_gore_level')}[/]")
-        table.add_row("[bold blue]6.[/] [bright_white]Romance focus[/]", f"[cyan]{settings.get('romance_focus')}[/]")
-        table.add_row("[bold blue]7.[/] [bright_white]Back[/]", "")
+        table.add_row("[bold blue]3.[/] [bright_white]Allow custom choices[/]", f"[cyan]{settings.get('allow_custom_choices')}[/]")
+        table.add_row("[bold blue]4.[/] [bright_white]Allow steamy scenes[/]", f"[cyan]{settings.get('allow_steamy_scenes')}[/]")
+        table.add_row("[bold blue]5.[/] [bright_white]Profanity level[/]", f"[cyan]{settings.get('profanity_level')}[/]")
+        table.add_row("[bold blue]6.[/] [bright_white]Violence/gore level[/]", f"[cyan]{settings.get('violence_gore_level')}[/]")
+        table.add_row("[bold blue]7.[/] [bright_white]Romance focus[/]", f"[cyan]{settings.get('romance_focus')}[/]")
+        table.add_row("[bold blue]8.[/] [bright_white]Back[/]", "")
         console.print(table)
 
-        choice = Prompt.ask("[bold cyan]Select an option[/]", choices=["1", "2", "3", "4", "5", "6", "7"])
+        choice = Prompt.ask("[bold cyan]Select an option[/]", choices=["1", "2", "3", "4", "5", "6", "7", "8"])
         if choice == "1":
             _toggle_bool(settings, "allow_fourth_wall")
         elif choice == "2":
             _toggle_bool(settings, "single_location_only")
         elif choice == "3":
-            _toggle_bool(settings, "allow_steamy_scenes")
+            _toggle_bool(settings, "allow_custom_choices")
         elif choice == "4":
+            _toggle_bool(settings, "allow_steamy_scenes")
+        elif choice == "5":
             level = Prompt.ask("[bold cyan]Profanity level[/]", choices=["none", "mild", "allow"])
             settings["profanity_level"] = level
             save_settings(settings)
-        elif choice == "5":
+        elif choice == "6":
             level = Prompt.ask("[bold cyan]Violence/gore level[/]", choices=["low", "medium", "high"])
             settings["violence_gore_level"] = level
             save_settings(settings)
-        elif choice == "6":
+        elif choice == "7":
             level = Prompt.ask("[bold cyan]Romance focus[/]", choices=["off", "low", "medium", "high"])
             settings["romance_focus"] = level
             save_settings(settings)
-        elif choice == "7":
+        elif choice == "8":
             return
 
 
