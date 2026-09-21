@@ -198,7 +198,20 @@ def generate_story_segment(
         )
     else:
         context = f"The player previously chose: {' -> '.join(path_choices)}."
-        user_message = f"{context} Continue the story based on that choice with 2-3 new numbered choices."
+        user_message = (
+            f"{context}\n\n"
+            "Continue the story based on the player's actual action. "
+            "The player's action may have been one of the suggested choices "
+            "or a completely custom action they came up with themselves. "
+            "If the player attempted a custom action, treat that action as "
+            "their intended action and respond to it naturally. "
+            "The action may succeed, partially succeed, fail, or have "
+            "unexpected consequences depending on the situation. "
+            "Do not force the story back toward the previously suggested "
+            "choices simply because the player chose something different. "
+            "Then provide 2-3 new numbered choices."
+        )
+
         chat_history.append({"role": "user", "content": user_message})
 
     effective_max_tokens = get_max_tokens(settings or {}, fallback=max_tokens)
