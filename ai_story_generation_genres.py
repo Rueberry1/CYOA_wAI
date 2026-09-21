@@ -47,6 +47,18 @@ BASE_PROMPTS = [
     {
         "role": "system",
         "content": (
+            "The player may sometimes attempt an action that was not one of the "
+            "suggested choices. When this happens, treat the player's action as "
+            "their intended action and continue the story logically from it. "
+            "The action may succeed, partially succeed, fail, or create unexpected "
+            "consequences depending on the circumstances. Never claim that the "
+            "player cannot attempt an action merely because it was not listed "
+            "as a suggested choice."
+        ),
+    },
+    {
+        "role": "system",
+        "content": (
             "This is a choose-your-own-adventure story. You will generate 2-3 numbered choices for the player at the end of each scene."
         ),
     },
