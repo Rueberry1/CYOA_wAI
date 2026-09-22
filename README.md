@@ -15,7 +15,6 @@ Play entirely in the terminal, choose from a wide variety of genres and settings
 * 🎒 Inventory system *(in development)*
 * ✏️ Custom player choices *(optional)*
 * ⚙️ Customizable story settings
-* 🌡️ Adjustable AI temperature
 * 📖 Adjustable passage length
 * 💾 Story caching
 * 🖥️ Runs directly in the terminal
