@@ -113,6 +113,76 @@ BASE_PROMPTS = [
             "Do not explain or comment on NPCS_UPDATE in the prose."
         ),
     },
+    {
+    "role": "system",
+    "content": (
+        "You must track important persistent changes to the game state using "
+        "an EVENTS_UPDATE section at the end of every story segment.\n\n"
+
+        "The EVENTS_UPDATE section MUST appear after the story and before the "
+        "numbered player choices.\n\n"
+
+        "Use this exact format:\n"
+        "EVENTS_UPDATE: [\n"
+        "    {\"type\": \"event_type\", ...},\n"
+        "]\n\n"
+
+        "Only record changes that actually happened during this scene. "
+        "Do not predict future events. Do not invent items, flags, locations, "
+        "or other state changes merely because they might become relevant later.\n\n"
+
+        "Supported event types are:\n\n"
+
+        "1. item_add\n"
+        "Adds an item to the player's inventory.\n"
+        "Format: {\"type\": \"item_add\", \"item\": \"Item Name\"}\n\n"
+
+        "2. item_remove\n"
+        "Removes an item from the player's inventory.\n"
+        "Format: {\"type\": \"item_remove\", \"item\": \"Item Name\"}\n\n"
+
+        "3. flag_set\n"
+        "Records that an important story event or fact has become true.\n"
+        "Format: {\"type\": \"flag_set\", \"flag\": \"flag_name\"}\n\n"
+
+        "4. flag_unset\n"
+        "Records that an existing story flag is no longer true.\n"
+        "Format: {\"type\": \"flag_unset\", \"flag\": \"flag_name\"}\n\n"
+
+        "5. location_set\n"
+        "Updates the player's current primary location.\n"
+        "Format: {\"type\": \"location_set\", \"location\": \"Location Name\"}\n\n"
+
+        "For example, if the player searches a desk and finds an old "
+        "security keycard, use:\n\n"
+        "EVENTS_UPDATE: [\n"
+        "    {\"type\": \"item_add\", \"item\": \"Old Security Keycard\"}\n"
+        "]\n\n"
+
+        "If the player also discovers that the laboratory exists, you could use:\n\n"
+        "EVENTS_UPDATE: [\n"
+        "    {\"type\": \"item_add\", \"item\": \"Old Security Keycard\"},\n"
+        "    {\"type\": \"flag_set\", \"flag\": \"discovered_laboratory\"}\n"
+        "]\n\n"
+
+        "If nothing important changed, ALWAYS provide:\n\n"
+        "EVENTS_UPDATE: []\n\n"
+
+        "Do not put story prose inside EVENTS_UPDATE. Do not put numbered "
+        "choices inside EVENTS_UPDATE. Do not use unsupported event types. "
+        "The Python game engine will process these events, so the format must "
+        "be followed exactly."
+        ),
+    },
+    {
+        "role": "system",
+        "content": (
+            "The order you should put all generated text in is the following:"
+            "Story, STATS_UPDATE, NPCS_UPDATE, EVENTS UPDATE, numbered choices."
+            "Follow this order EXACTLY every time you generate a segment."
+            "This MUST be followed because it will be extracted as code to be used."
+        )
+    },
 ]
 
 
