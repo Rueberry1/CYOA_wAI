@@ -51,8 +51,12 @@ def choose_your_own_adventure(
 
     console.clear()
     console.print(header)
+
     path_choices: list[str] = []
-    npc_states: dict[str, Any] = {}
+
+    game_state = create_game_state(player_choices)
+
+    npc_states: dict[str, Any] = game_state["npcs"]
 
     while True:
         segment, used_cache, path_hash = generate_story_segment(
