@@ -44,3 +44,5 @@ def apply_event(game_state: dict[str, Any], event: dict[str, Any]) -> None:
 
         if location:
             game_state["location"] = location
+    else:
+        print(f"WARNING: Unknown event type: {event_type}") # debugging tool, to be removed for final release
