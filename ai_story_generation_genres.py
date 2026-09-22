@@ -40,6 +40,12 @@ BASE_PROMPTS = [
     {
         "role": "system",
         "content": (
+            "This is a choose-your-own-adventure story. You will generate 2-3 numbered choices for the player at the end of each scene."
+        ),
+    },
+    {
+        "role": "system",
+        "content": (
             "Each story segment should be long enough to feel complete but concise enough to maintain pacing. "
             f"Avoid ending abruptly or writing excessively long scenes. Typically {instruction} words before offering choices."
         ),
@@ -54,12 +60,6 @@ BASE_PROMPTS = [
             "consequences depending on the circumstances. Never claim that the "
             "player cannot attempt an action merely because it was not listed "
             "as a suggested choice."
-        ),
-    },
-    {
-        "role": "system",
-        "content": (
-            "This is a choose-your-own-adventure story. You will generate 2-3 numbered choices for the player at the end of each scene."
         ),
     },
     {
