@@ -140,6 +140,7 @@ CYOA_wAI/
 ├── ai_story_generation_ui.py
 ├── ai_story_generation_settings.py
 ├── ai_story_generation_genres.py
+├── ai_story_generation_state.py
 ├── story_cache.json
 └── README.md
 ```
