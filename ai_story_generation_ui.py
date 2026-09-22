@@ -18,9 +18,12 @@ from ai_story_generation_core import (
     story_cache,
     save_cache,
     clear_cache,
+    extract_events,
 )
 from ai_story_generation_genres import GENRES, HORROR_SUBTYPES, genre_label
 from ai_story_generation_settings import load_settings, save_settings
+
+from ai_story_generation_state import apply_event, create_game_state
 
 
 def choose_your_own_adventure(
