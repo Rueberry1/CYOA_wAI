@@ -124,6 +124,26 @@ def extract_npcs_update(segment: str) -> dict[str, Any] | None:
             return None
     return None
 
+def extract_events(segment: str) -> list[dict[str, Any]]:
+    match = re.search(r"EVENTS_UPDATE:\s*(\[.*?\])", segment, re.DOTALL)
+
+    if not match:
+        return []
+
+    try:
+        data = ast.literal_eval(match.group(1))
+
+        if isinstance(data, list):
+            return [
+                event
+                for event in data
+                if isinstance(event, dict)
+            ]
+
+    except Exception:
+        return []
+
+    return []
 
 def generate_story_segment(
     seed: int,
