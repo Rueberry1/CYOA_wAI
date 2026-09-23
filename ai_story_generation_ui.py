@@ -163,6 +163,38 @@ def choose_your_own_adventure(
         for event in events_update:
             apply_event(game_state, event)
 
+# Debugging table
+
+        """
+        debug_state = Table(
+            title="DEBUG: Game State",
+            box=None,
+            show_header=True,
+            border_style="bright_blue",
+        )
+        debug_state.add_column("State", style="bold cyan")
+        debug_state.add_column("Value", style="bright_white")
+
+        debug_state.add_row(
+            "Inventory",
+            ", ".join(game_state["inventory"]) if game_state["inventory"] else "(empty)",
+        )
+        debug_state.add_row(
+            "Flags",
+            ", ".join(
+                f"{key}={value}"
+                for key, value in game_state["flags"].items()
+            ) if game_state["flags"] else "(none)",
+        )
+        debug_state.add_row(
+            "Location",
+            str(game_state["location"]) if game_state["location"] else "(unknown)",
+        )
+
+        console.print(debug_state)
+
+        """
+
         npcs_update = extract_npcs_update(segment)
         if npcs_update:
             for npc_id, npc_data in npcs_update.items():
@@ -381,8 +413,8 @@ def settings_menu(console: Console, settings: dict[str, Any]) -> None:
         elif choice == "3":
             confirm = Prompt.ask(
                 "[bold red]This will erase all cached story progress. Are you sure?[/]",
-                choices=["1", "2"],
-                default="2",
+                choices=["y", "n"],
+                default="n",
             )
             if confirm == "1":
                 clear_cache()
