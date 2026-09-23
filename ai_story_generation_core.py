@@ -201,12 +201,6 @@ def generate_story_segment(
         npc_summary = "Current NPCs and your relationship with them:\n" + "\n".join(npc_lines)
         chat_history.append({"role": "system", "content": npc_summary})
 
-        game_state = {
-        "inventory": [],
-        "flags": {},
-        "location": None,
-    }
-
     state_summary = (
         "Current game state:\n"
         f"Inventory: {', '.join(game_state['inventory']) if game_state['inventory'] else 'empty'}\n"
