@@ -64,6 +64,7 @@ def choose_your_own_adventure(
             player_choices,
             path_choices,
             npc_states,
+            game_state,
             genres=genres,
             genre_key=genre_key,
             settings=settings,
