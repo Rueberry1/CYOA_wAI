@@ -157,6 +157,11 @@ def choose_your_own_adventure(
             major = stats_update.get("major", None)
             if major and str(major).lower() not in ("null", "none", ""):
                 player_choices["major choices"].append(str(major))
+            
+        events_update = extract_events(segment)
+
+        for event in events_update:
+            apply_event(game_state, event)
 
         npcs_update = extract_npcs_update(segment)
         if npcs_update:
