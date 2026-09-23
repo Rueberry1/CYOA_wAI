@@ -69,6 +69,7 @@ def get_path_hash(
     differs.
     """
     state_snapshot = {
+        "player": game_state.get("player", {}) if game_state else {},
         "inventory": sorted(game_state.get("inventory", [])) if game_state else [],
         "flags": game_state.get("flags", {}) if game_state else {},
         "location": game_state.get("location") if game_state else None,
