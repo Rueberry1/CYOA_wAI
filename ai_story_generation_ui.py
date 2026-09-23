@@ -72,10 +72,12 @@ def choose_your_own_adventure(
 
         cached_entry = story_cache.get(path_hash)
         if used_cache and isinstance(cached_entry, dict):
-            cached_npcs = cached_entry.get("npcs")
-            if isinstance(cached_npcs, dict):
-                npc_states.clear()
-                npc_states.update(cached_npcs)
+            cached_state = cached_entry.get("game_state")
+            if isinstance(cached_state, dict):
+                game_state.clear()
+                game_state.update(cached_state)
+
+        npc_states = game_state["npcs"]
 
         story_part = segment.split("STATS_UPDATE")[0].strip()
         story_panel = Panel(
@@ -240,7 +242,10 @@ def choose_your_own_adventure(
 
                 npc_states[npc_id] = existing
 
-        story_cache[path_hash] = {"segment": segment, "npcs": npc_states}
+        story_cache[path_hash] = {
+            "segment": segment,
+            "game_state": game_state,
+        }
         save_cache()
 
 
