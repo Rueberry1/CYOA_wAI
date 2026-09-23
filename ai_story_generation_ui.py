@@ -152,101 +152,100 @@ def choose_your_own_adventure(
 
         path_choices.append(chosen_text)
 
-        stats_update = extract_stats_update(segment)
-        if stats_update:
-            player_choices["morality"] = clamp(player_choices["morality"] + stats_update["morality"], -100, 100)
-            player_choices["AstraCore Dynamics"] = clamp(player_choices["AstraCore Dynamics"] + stats_update["AstraCore Dynamics"], -100, 100)
-            player_choices["Stellar Concorde Collective"] = clamp(player_choices["Stellar Concorde Collective"] + stats_update["Stellar Concorde Collective"], -100, 100)
-            major = stats_update.get("major", None)
-            if major and str(major).lower() not in ("null", "none", ""):
-                player_choices["major choices"].append(str(major))
+        if not used_cache:
+            stats_update = extract_stats_update(segment)
+            if stats_update:
+                player_choices["morality"] = clamp(player_choices["morality"] + stats_update["morality"], -100, 100)
+                player_choices["AstraCore Dynamics"] = clamp(player_choices["AstraCore Dynamics"] + stats_update["AstraCore Dynamics"], -100, 100)
+                player_choices["Stellar Concorde Collective"] = clamp(player_choices["Stellar Concorde Collective"] + stats_update["Stellar Concorde Collective"], -100, 100)
+                major = stats_update.get("major", None)
+                if major and str(major).lower() not in ("null", "none", ""):
+                    player_choices["major choices"].append(str(major))
             
-        events_update = extract_events(segment)
-
-        for event in events_update:
-            apply_event(game_state, event)
+            events_update = extract_events(segment)
+            for event in events_update:
+                apply_event(game_state, event)
 
 # Debugging table
 
-        """
-        debug_state = Table(
-            title="DEBUG: Game State",
-            box=None,
-            show_header=True,
-            border_style="bright_blue",
-        )
-        debug_state.add_column("State", style="bold cyan")
-        debug_state.add_column("Value", style="bright_white")
+            """
+            debug_state = Table(
+                title="DEBUG: Game State",
+                box=None,
+                show_header=True,
+                border_style="bright_blue",
+            )
+            debug_state.add_column("State", style="bold cyan")
+            debug_state.add_column("Value", style="bright_white")
 
-        debug_state.add_row(
-            "Inventory",
-            ", ".join(game_state["inventory"]) if game_state["inventory"] else "(empty)",
-        )
-        debug_state.add_row(
-            "Flags",
-            ", ".join(
-                f"{key}={value}"
-                for key, value in game_state["flags"].items()
-            ) if game_state["flags"] else "(none)",
-        )
-        debug_state.add_row(
-            "Location",
-            str(game_state["location"]) if game_state["location"] else "(unknown)",
-        )
+            debug_state.add_row(
+                "Inventory",
+                ", ".join(game_state["inventory"]) if game_state["inventory"] else "(empty)",
+            )
+            debug_state.add_row(
+                "Flags",
+                ", ".join(
+                    f"{key}={value}"
+                    for key, value in game_state["flags"].items()
+                ) if game_state["flags"] else "(none)",
+            )
+            debug_state.add_row(
+                "Location",
+                str(game_state["location"]) if game_state["location"] else "(unknown)",
+            )
 
-        console.print(debug_state)
+            console.print(debug_state)
+            """
 
-        """
-
-        npcs_update = extract_npcs_update(segment)
-        if npcs_update:
-            for npc_id, npc_data in npcs_update.items():
-                if not isinstance(npc_data, dict):
-                    continue
-                name = str(npc_data.get("name", npc_id))
-                try:
-                    rel_delta = int(npc_data.get("relationship_delta", 0))
-                except Exception:
-                    rel_delta = 0
-                flags = npc_data.get("flags", [])
-                if not isinstance(flags, (list, tuple)):
-                    flags = [str(flags)]
-                role = npc_data.get("role", None)
-
-                existing = npc_states.get(
-                    npc_id,
-                    {
-                        "name": name,
-                        "relationship": 0,
-                        "flags": [],
-                        "roles": [],
-                    },
-                )
-
-                existing["name"] = name
-                existing["relationship"] = clamp(existing.get("relationship", 0) + rel_delta, -100, 100)
-
-                flag_set = set(str(f) for f in existing.get("flags", []))
-                for f in flags:
-                    if f is None:
+            npcs_update = extract_npcs_update(segment)
+            if npcs_update:
+                for npc_id, npc_data in npcs_update.items():
+                    if not isinstance(npc_data, dict):
                         continue
-                    flag_set.add(str(f))
-                existing["flags"] = sorted(flag_set)
+                    name = str(npc_data.get("name", npc_id))
+                    try:
+                        rel_delta = int(npc_data.get("relationship_delta", 0))
+                    except Exception:
+                        rel_delta = 0
+                    flags = npc_data.get("flags", [])
+                    if not isinstance(flags, (list, tuple)):
+                        flags = [str(flags)]
+                    role = npc_data.get("role", None)
 
-                if role and str(role).lower() not in ("null", "none", ""):
-                    role_str = str(role)
-                    roles_list = list(existing.get("roles", []))
-                    roles_list.append(role_str)
-                    existing["roles"] = roles_list
-                    existing["role"] = role_str
+                    existing = npc_states.get(
+                        npc_id,
+                        {
+                            "name": name,
+                            "relationship": 0,
+                            "flags": [],
+                            "roles": [],
+                        },
+                    )
 
-                npc_states[npc_id] = existing
+                    existing["name"] = name
+                    existing["relationship"] = clamp(existing.get("relationship", 0) + rel_delta, -100, 100)
 
-        story_cache[path_hash] = {
-            "segment": segment,
-            "game_state": game_state,
-        }
-        save_cache()
+                    flag_set = set(str(f) for f in existing.get("flags", []))
+                    for f in flags:
+                        if f is None:
+                            continue
+                        flag_set.add(str(f))
+                    existing["flags"] = sorted(flag_set)
+
+                    if role and str(role).lower() not in ("null", "none", ""):
+                        role_str = str(role)
+                        roles_list = list(existing.get("roles", []))
+                        roles_list.append(role_str)
+                        existing["roles"] = roles_list
+                        existing["role"] = role_str
+
+                    npc_states[npc_id] = existing
+
+            story_cache[path_hash] = {
+                "segment": segment,
+                "game_state": game_state,
+            }
+            save_cache()
 
 
 def start_new_game(console: Console, player_choices: dict[str, Any], settings: dict[str, Any]) -> None:
