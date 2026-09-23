@@ -150,6 +150,7 @@ def generate_story_segment(
     player_choices: dict[str, Any],
     path_choices: list[str],
     npc_states: dict[str, Any],
+    game_state: dict[str, Any],
     *,
     genres: list[str] | None = None,
     genre_key: str | None = None,
@@ -199,6 +200,26 @@ def generate_story_segment(
             npc_lines.append(f"- {name} (id={npc_id}): relationship {rel}, role: {role}, history: {flags}")
         npc_summary = "Current NPCs and your relationship with them:\n" + "\n".join(npc_lines)
         chat_history.append({"role": "system", "content": npc_summary})
+
+        game_state = {
+        "inventory": [],
+        "flags": {},
+        "location": None,
+    }
+
+    state_summary = (
+        "Current game state:\n"
+        f"Inventory: {', '.join(game_state['inventory']) if game_state['inventory'] else 'empty'}\n"
+        f"Flags: {', '.join(f'{key}={value}' for key, value in game_state['flags'].items()) if game_state['flags'] else 'none'}\n"
+        f"Location: {game_state['location'] if game_state['location'] else 'unknown'}"
+    )
+
+    chat_history.append(
+        {
+            "role": "system",
+            "content": state_summary,
+        }
+    )
 
     checkpoint_instruction = get_checkpoint_instruction(len(path_choices))
     if checkpoint_instruction:
