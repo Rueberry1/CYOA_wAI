@@ -55,17 +55,38 @@ def clear_cache() -> None:
     save_cache()
 
 
-def get_path_hash(seed: int, path_choices: list[str], genre_key: str | None = None) -> str:
+def get_path_hash(
+    seed: int,
+    path_choices: list[str],
+    genre_key: str | None = None,
+    game_state: dict[str, Any] | None = None,
+) -> str:
     """
-    Generate a deterministic hash for a sequence of choices under a given seed.
-    If genre_key is provided, include it so the same seed+path under different
-    genres creates distinct stories. If genre_key is None, fall back to the
-    legacy format for backwards compatibility with existing cache entries.
+    Generate a deterministic hash for a sequence of choices and game state.
+
+    The game state is included so the same story path can produce different
+    cache entries when the player's inventory, flags, location, or NPC state
+    differs.
     """
-    if genre_key is None:
-        path_string = f"{seed}:{'|'.join(path_choices)}"
-    else:
-        path_string = f"{seed}:{genre_key}:{'|'.join(path_choices)}"
+    state_snapshot = {
+        "inventory": sorted(game_state.get("inventory", [])) if game_state else [],
+        "flags": game_state.get("flags", {}) if game_state else {},
+        "location": game_state.get("location") if game_state else None,
+        "npcs": game_state.get("npcs", {}) if game_state else {},
+    }
+
+    state_string = json.dumps(
+        state_snapshot,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+
+    genre_part = genre_key if genre_key is not None else ""
+
+    path_string = (
+        f"{seed}:{genre_part}:{'|'.join(path_choices)}:{state_string}"
+    )
+
     return hashlib.sha256(path_string.encode()).hexdigest()
 
 
@@ -157,7 +178,12 @@ def generate_story_segment(
     settings: dict[str, Any] | None = None,
     max_tokens: int = 800,
 ) -> tuple[str, bool, str]:
-    path_hash = get_path_hash(seed, path_choices, genre_key=genre_key)
+    path_hash = get_path_hash(
+        seed,
+        path_choices,
+        genre_key=genre_key,
+        game_state=game_state,
+    )
 
     if path_hash in story_cache:
         cached = story_cache[path_hash]
