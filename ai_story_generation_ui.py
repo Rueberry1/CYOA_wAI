@@ -421,7 +421,7 @@ def settings_menu(console: Console, settings: dict[str, Any]) -> None:
                 choices=["y", "n"],
                 default="n",
             )
-            if confirm == "1":
+            if confirm == "y":
                 clear_cache()
                 console.print(Panel(Text("Save data cleared.", style="green"), style="bright_blue"))
                 _ = Prompt.ask("[bold cyan]Press Enter to continue[/]", default="")
