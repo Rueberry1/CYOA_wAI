@@ -128,7 +128,7 @@ def choose_your_own_adventure(
                 )
 
                 if choice == "q":
-                    console.print("[bold yellow]What would you like to do?[/]")
+                    console.print("[bold yellow]Pick an option to quit, all data will be saved.[/]")
                     console.print("1. Return to main menu")
                     console.print("2. Shut down the game")
                     console.print("3. Cancel")
