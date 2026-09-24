@@ -123,9 +123,31 @@ def choose_your_own_adventure(
                     ]
 
                 choice = Prompt.ask(
-                    "[bold cyan]Select your choice[/]",
-                    choices=valid_choices
+                    "[bold cyan]Select your choice (or q to quit)[/]",
+                    choices=valid_choices + ["q"]
                 )
+
+                if choice == "q":
+                    console.print("[bold yellow]What would you like to do?[/]")
+                    console.print("1. Return to main menu")
+                    console.print("2. Shut down the game")
+                    console.print("3. Cancel")
+
+                    quit_choice = Prompt.ask(
+                        "[bold yellow]What would you like to do?[/]",
+                        choices=["1", "2", "3"],
+                        default="3"
+                    )
+
+                    if quit_choice == "1":
+                        return
+
+                    elif quit_choice == "2":
+                        console.print("\n[bold cyan]Thanks for playing![/]")
+                        raise SystemExit
+
+                    else:
+                        continue
 
                 choice_int = int(choice)
 
@@ -168,7 +190,7 @@ def choose_your_own_adventure(
 
 # Debugging table
 
-            """
+            """""
             debug_state = Table(
                 title="DEBUG: Game State",
                 box=None,
