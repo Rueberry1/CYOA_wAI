@@ -116,6 +116,12 @@ _Fun Fact, Comic Horror was created because of a typo trying to type Cosmic Horr
 
 ---
 
+## Saving
+
+When starting a game, you will be asked for a **Seed**. Seeds are unique identifiers you can re-enter later to continue from where you left off. Each seed is connected to the genre of the game, so you can have a seed 12345 for both Sci-Fi and Fantasy and they will both store seperate stories!
+
+---
+
 ## 🧠 How the AI Works
 
 The game uses the OpenAI API to generate story segments based on:
