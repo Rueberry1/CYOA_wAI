@@ -171,7 +171,7 @@ CYOA_wAI/
 
 ## 📸 Screenshots
 
-![An Example Scene](Screenshots/Scene-Example)
+![An Example Scene](CYOA_wAI/Screenshots/Scene-Example)
 
 ---
 
