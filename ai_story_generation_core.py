@@ -235,10 +235,45 @@ def generate_story_segment(
         f"Location: {game_state['location'] if game_state['location'] else 'unknown'}"
     )
 
+    event_instructions = """
+Event tracking:
+At the end of every story segment, output an EVENTS_UPDATE line containing a Python-style list of dictionaries describing ONLY state changes that actually happened during this segment.
+
+Supported event types:
+
+- item_add:
+  {"type": "item_add", "item": "Item Name"}
+
+- item_remove:
+  {"type": "item_remove", "item": "Item Name"}
+
+- flag_set:
+  {"type": "flag_set", "flag": "flag_name"}
+
+- flag_unset:
+  {"type": "flag_unset", "flag": "flag_name"}
+
+- location_set:
+  {"type": "location_set", "location": "Location Name"}
+
+Inventory rules:
+- Use item_add when the player actually obtains an item.
+- Use item_remove when the player actually loses, gives away, uses, or otherwise no longer possesses an item.
+- Do not add an item merely because it was mentioned, seen, or could potentially be obtained later.
+- Do not remove an item unless the story establishes that the player no longer has it.
+- Do not duplicate an item_add for an item the player already has unless the story explicitly establishes that the player obtained another copy.
+- Only report changes that actually occur in this story segment.
+
+If no state changes occurred, output:
+EVENTS_UPDATE: []
+
+The EVENTS_UPDATE line must appear after NPCS_UPDATE and before CHOICES.
+"""
+
     chat_history.append(
         {
             "role": "system",
-            "content": state_summary,
+            "content": state_summary + "\n\n" + event_instructions,
         }
     )
 
