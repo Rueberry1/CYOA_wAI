@@ -173,8 +173,6 @@ CYOA_wAI/
 
 ![An Example Scene](Screenshots/Scene-Example.png)
 
-<h2>Game Screenshots</h2>
-
 <table>
   <tr>
     <td align="center">
@@ -197,6 +195,9 @@ CYOA_wAI/
     </td>
   </tr>
 </table>
+
+![The Settings Homepage](Screenshots/Settings-Homepage.png)
+![All Stylisation Toggables](Screenshots/Settings-Toggles.png)
 
 ---
 
