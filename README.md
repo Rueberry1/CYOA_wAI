@@ -60,7 +60,7 @@ Alternatively you can download the files from the releases page
 
 ### 2. Install dependencies
 
-The program will automatically install the required Python packages when launched. If it doesn't, check [This page](https://github.com/Rueberry1/CYOA_wAI/wiki/Installation-and-Running-The-Project)
+The program will automatically install the required Python packages when launched. If it doesn't, check [this page](https://github.com/Rueberry1/CYOA_wAI/wiki/Installation-and-Running-The-Project)
 
 ### 3. Set your API key
 
