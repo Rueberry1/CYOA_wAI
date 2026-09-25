@@ -1,4 +1,4 @@
-<img width="1135" height="508" alt="image" src="https://github.com/user-attachments/assets/15ca7520-680e-4e4b-9381-a137dd4c8622" /># CYOA_wAI 🚀
+# CYOA_wAI 🚀
 
 **An AI-powered choose-your-own-adventure game that creates a unique story around your choices.**
 
