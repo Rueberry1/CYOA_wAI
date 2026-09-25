@@ -171,7 +171,7 @@ CYOA_wAI/
 
 ## 📸 Screenshots
 
-*Screenshots coming soon!*
+![An Example Scene](Screenshots/Scene-Example)
 
 ---
 
