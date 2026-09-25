@@ -173,6 +173,31 @@ CYOA_wAI/
 
 ![An Example Scene](Screenshots/Scene-Example.png)
 
+<h2>Game Screenshots</h2>
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="Screenshots/Main-Menu.png" width="400"><br>
+      <sub>Main Menu</sub>
+    </td>
+    <td align="center">
+      <img src="Screenshots/Quit-Example.png" width="400"><br>
+      <sub>Quitting the Game</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="Screenshots/Genre-Selection.png" width="400"><br>
+      <sub>Picking Genres</sub>
+    </td>
+    <td align="center">
+      <img src="Screenshots/Horror-Selection.png" width="400"><br>
+      <sub>Picking a Horror Subgenre</sub>
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## 🤖 AI-Assisted Development
