@@ -1,4 +1,4 @@
-# CYOA_wAI 🚀
+<img width="1135" height="508" alt="image" src="https://github.com/user-attachments/assets/15ca7520-680e-4e4b-9381-a137dd4c8622" /># CYOA_wAI 🚀
 
 **An AI-powered choose-your-own-adventure game that creates a unique story around your choices.**
 
@@ -10,6 +10,7 @@ Play entirely in the terminal, choose from a wide variety of genres and settings
 
 * 🤖 **AI-generated stories**
 * 📚 Multiple **genres and subgenres**
+* 👣 **Checkpoints** which every story uses *(Toggling coming soon)*
 * 🎭 Dynamic **NPC tracking**
 * 📊 Player **stats and morality**
 * 🎒 Inventory system *(in development)*
@@ -115,6 +116,21 @@ Some examples include:
 _Fun Fact, Comic Horror was created because of a typo trying to type Cosmic Horror!_
 
 ---
+
+<details>
+<summary>👣 Checkpoints</summary>
+
+The game has **7** Checkpoints at various passages where the same thing happens every time (See [customisation](https://github.com/Rueberry1/CYOA_wAI/wiki/Customisation#checkpoints) to change them.
+
+* 4: "Something unexpected or mysterious happens that shifts the player's understanding of their journey or surroundings and leads them to have a long term goal.",
+* 18: "The player encounters a new world, culture, or phenomenon that challenges previous assumptions and offers new possibilities.",
+* 27: "A situation arises where the player must make a difficult ethical or strategic choice, with no clearly right answer.",
+* 40: "The consequences of earlier choices start to ripple out, changing available resources, allies, or goals in significant ways.",
+* 55: "The player is presented with an opportunity or temptation that could lead their story in a radically new direction, if they choose to pursue it.",
+* 80: "A personal loss or sacrifice tests the player's resolve and ambitions.",
+* 100: "The story should now move toward a satisfying ending or resolution within the next few scenes.",
+
+</details>
 
 ## Saving
 
