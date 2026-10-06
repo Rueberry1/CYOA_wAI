@@ -111,16 +111,16 @@ Some examples include:
 * Romance
 * And more...
 
-</details>
-
 _Fun Fact, Comic Horror was created because of a typo trying to type Cosmic Horror!_
+
+</details>
 
 ---
 
 <details>
 <summary>👣 Checkpoints</summary>
 
-The game has **7** Checkpoints at various passages where the same thing happens every time (See [customisation](https://github.com/Rueberry1/CYOA_wAI/wiki/Customisation#checkpoints) to change them.
+The game has **7** Checkpoints at various passages where the same thing happens every time (See [customisation](https://github.com/Rueberry1/CYOA_wAI/wiki/Customisation#checkpoints) to change them).
 
 * 4: "Something unexpected or mysterious happens that shifts the player's understanding of their journey or surroundings and leads them to have a long term goal.",
 * 18: "The player encounters a new world, culture, or phenomenon that challenges previous assumptions and offers new possibilities.",
