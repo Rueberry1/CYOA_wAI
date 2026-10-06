@@ -67,13 +67,19 @@ The program will automatically install the required Python packages when launche
 Set your `OPENAI_API_KEY` environment variable before running the game. You can do this by typing one of these commands depending on your OS:
 
 MacOS/Linux:
-```export OPENAI_API_KEY="your-api-key-here"```
+```
+export OPENAI_API_KEY="your-api-key-here"
+```
 
 Windows Powershell
-```$env:OPEN_API_KEY="your-api-key-here"```
+```
+$env:OPEN_API_KEY="your-api-key-here"
+```
 
 Windows Command Prompt
-```set OPENAI_API_KEY=your-api-key-here```
+```
+set OPENAI_API_KEY=your-api-key-here
+```
 
 ### 4. Start the game
 
