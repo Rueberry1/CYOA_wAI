@@ -73,7 +73,7 @@ export OPENAI_API_KEY="your-api-key-here"
 
 Windows Powershell:
 ```
-$env:OPEN_API_KEY="your-api-key-here"
+$env:OPENAI_API_KEY="your-api-key-here"
 ```
 
 Windows Command Prompt:
