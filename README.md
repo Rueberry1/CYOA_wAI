@@ -64,7 +64,7 @@ The program will automatically install the required Python packages when launche
 
 ### 3. Set your API key
 
-Set your `OPENAI_API_KEY` environment variable before running the game. You can do this by typing one of these commands depending on your OS:
+Set your `OPENAI_API_KEY` environment variable before running the game. You can do this temporarily for the current terminal by typing one of these commands depending on your OS:
 
 MacOS/Linux:
 ```
