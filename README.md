@@ -71,12 +71,12 @@ MacOS/Linux:
 export OPENAI_API_KEY="your-api-key-here"
 ```
 
-Windows Powershell
+Windows Powershell:
 ```
 $env:OPEN_API_KEY="your-api-key-here"
 ```
 
-Windows Command Prompt
+Windows Command Prompt:
 ```
 set OPENAI_API_KEY=your-api-key-here
 ```
