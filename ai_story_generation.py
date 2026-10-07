@@ -18,6 +18,11 @@ try:
 except ImportError:
     install("openai")
 
+try:
+    import readchar  # noqa: F401
+except ImportError:
+    install("readchar")
+
 
 from ai_story_generation_ui import main_menu  # noqa: E402
 
