@@ -8,6 +8,8 @@ from rich.prompt import Prompt
 from rich.table import Table
 from rich.text import Text
 
+import readchar
+
 from ai_story_generation_core import (
     CHECKPOINTS,
     extract_choices,
@@ -24,6 +26,40 @@ from ai_story_generation_genres import GENRES, HORROR_SUBTYPES, genre_label
 from ai_story_generation_settings import load_settings, save_settings
 
 from ai_story_generation_state import apply_event, create_game_state
+
+
+
+def show_inventory(console: Console, game_state: dict[str, Any]) -> None:
+    """Display the player's current inventory until the player presses i again."""
+    console.print()
+    
+    inventory = game_state.get("inventory", [])
+    table = Table(box=None, show_header=False, expand=False, border_style="bright_blue")
+    table.add_column("Item", style="bright_white")
+
+    if inventory:
+        for idx, item in enumerate(inventory, start=1):
+            table.add_row(f"[bold blue]{idx}.[/] {item}")
+    else:
+        table.add_row("[dim]Your inventory is empty.[/]")
+
+    panel = Panel(
+        table,
+        title="[bold cyan]INVENTORY[/]",
+        subtitle=f"[cyan]{len(inventory)} item{'s' if len(inventory) != 1 else ''}[/]",
+        style="bold bright_blue",
+        border_style="bold bright_cyan",
+        width=80,
+    )
+    console.print(panel)
+    console.print("[dim]Press [bold cyan]i[/] to close inventory.[/dim]")
+
+    while True:
+        key = readchar.readkey().lower()
+        if key == "i":
+            break
+
+    console.print()
 
 
 def choose_your_own_adventure(
@@ -47,7 +83,7 @@ def choose_your_own_adventure(
         style="bold bright_blue",
         subtitle=subtitle_text,
     )
-    footer = Panel(Text("Type the number of your choice and press <Enter>", style="cyan"), style="bright_blue")
+    footer = Panel(Text("Type the number and press <Enter>  •  [i] Inventory  •  [q] Quit", style="cyan"), style="bright_blue")
 
     console.clear()
     console.print(header)
@@ -122,10 +158,43 @@ def choose_your_own_adventure(
                         str(i + 1) for i in range(len(options))
                     ]
 
-                choice = Prompt.ask(
-                    "[bold cyan]Select your choice (or q to quit)[/]",
-                    choices=valid_choices + ["q"]
-                )
+                console.print("[bold cyan]Select your choice:[/] ", end="")
+                choice_buffer = ""
+
+                while True:
+                    key = readchar.readkey()
+
+                    if not choice_buffer and key.lower() == "i":
+                        console.print()
+                        show_inventory(console, game_state)
+                        console.print(footer)
+                        console.print("[bold cyan]Select your choice:[/] ", end="")
+                        continue
+
+                    if not choice_buffer and key.lower() == "q":
+                        choice = "q"
+                        console.print("q")
+                        break
+
+                    if key in ("\r", "\n"):
+                        if choice_buffer in valid_choices:
+                            choice = choice_buffer
+                            console.print()
+                            break
+                        console.print()
+                        console.print("[bright_red]Invalid choice. Try again.[/]")
+                        console.print("[bold cyan]Select your choice:[/] ", end="")
+                        choice_buffer = ""
+                        continue
+
+                    if key.isdigit():
+                        choice_buffer += key
+                        console.print(key, end="")
+
+                    elif key == "\x7f":
+                        if choice_buffer:
+                            choice_buffer = choice_buffer[:-1]
+                            console.print("\b \b", end="")
 
                 if choice == "q":
                     console.print("[bold yellow]Pick an option to quit, all data will be saved.[/]")
