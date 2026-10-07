@@ -189,10 +189,7 @@ def choose_your_own_adventure(
 
                     if key.isdigit():
                         choice_buffer += key
-                        if choice_buffer in valid_choices and len(valid_choices) <= 9:
-                            choice = choice_buffer
-                            console.print(choice)
-                            break
+                        console.print(key, end="")
 
                     elif key == "\x7f":
                         if choice_buffer:
